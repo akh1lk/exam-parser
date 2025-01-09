@@ -1,4 +1,4 @@
-# **GradeWiz Parser**
+# **Exam Parser**
 
 Questions & Answer Parser w/ Flask API:
 
