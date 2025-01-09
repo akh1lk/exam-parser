@@ -14,10 +14,7 @@ from typing import List, Optional
 from docx import Document
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-
-from pylatex import NoEscape, Command
-from pylatex import Document as DocPy
-from pylatex.utils import escape_latex
+from docx2pdf import convert
 
 #brew install tesseract
 
@@ -238,6 +235,23 @@ def save_to_docx(data: dict, output_path: str = "output"):
     document.save(output_path)
     print(f"Output saved to {output_path}")
 
+def save_to_pdf(data: dict, output_path: str = "output"):
+    """
+    Saves a dict to a .pdf file by first generating a .docx file and then converting it to a .pdf using docx2pdf.
+    """
+    docx_path = f"{os.path.splitext(output_path)[0]}.docx"
+    pdf_path = f"{output_path}.pdf"
+
+    # Step 1: Generate .docx
+    save_to_docx(data, docx_path)
+
+    # Step 2: Convert .docx to .pdf w/ docx2pdf
+    try:
+        convert(docx_path, pdf_path)  # Convert and save directly to specified path
+        print(f"PDF output saved to {pdf_path}")
+    except Exception as e:
+        print(f"Error converting DOCX to PDF: {e}")
+
 def main():
     #PDF to JSON Example
     question_filepath = "./pdfs/math110-midterm-questions-071312.pdf"
@@ -253,7 +267,6 @@ def main():
         print(f"Error processing files: {e}")
         return
     
-    #print(f"Questions: {questions_text} \n\n Answers: {answers_text}")
     paired_results = organize_LLM(questions_text, answers_text)
     save_to_json(paired_results, "output2.json")
 
