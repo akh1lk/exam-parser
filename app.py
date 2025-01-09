@@ -41,12 +41,10 @@ def upload_files():
         # Generate filenames using the extracted title
         json_path = os.path.join(app.config["OUTPUT_FOLDER"], f"{sanitized_title}_Q&A.json")
         docx_path = os.path.join(app.config["OUTPUT_FOLDER"], f"{sanitized_title}_Q&A.docx")
-        # pdf_path = os.path.join(app.config["OUTPUT_FOLDER"], f"{sanitized_title}_Q&A.pdf")
 
-        # Save outputs (JSON, DOCX, PDF)
+        # Save outputs (JSON, DOCX)
         save_to_json(paired_results, json_path)
         save_to_docx(paired_results, docx_path)
-        # save_to_pdf(paired_results, pdf_path)
 
         return redirect(url_for("download_files", title=title))
 
@@ -55,13 +53,13 @@ def upload_files():
 @app.route("/download")
 def download_files():
     """
-    Renders the download page with links to download the output files.
+    Renders download page w/ links to download the output files.
     """
-    # Extract the title from the request (e.g., via query parameter)
+    # get title from request
     title = request.args.get("title", "output_QA")
     sanitized_title = sanitize_filename(title)
     
-    # Construct the expected filenames
+    # create filenames
     json_file = f"{sanitized_title}_Q&A.json"
     docx_file = f"{sanitized_title}_Q&A.docx"
     
@@ -81,7 +79,7 @@ def download_files():
 @app.route("/files/<filename>")
 def get_file(filename):
     """
-    Serves the output files for download.
+    send output files for download
     """
     return send_file(os.path.join(app.config["OUTPUT_FOLDER"], filename), as_attachment=True)
 
