@@ -5,6 +5,7 @@ Questions & Answer Parser w/ Flask API:
 - Flask API intelligently pairs using OpenAI’s LLM, 
 - Output Formats: **JSON**, **DOCX** 
 - Inputs: **PDF**, **DOCX**, **images**, and **plain text** files.
+- **Note: Test Files are in /exam-parser/test-inputs**
 ---
 
 ## **Features**
