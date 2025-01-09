@@ -31,6 +31,7 @@ Questions & Answer Parser w/ Flask API:
 
 3. **Create and Activate a Virtual Environment**:
    ```bash
+   #If on VSCode, you can use the built-in venv & requirements creator
    python3 -m venv venv
    source venv/bin/activate  # On Windows, use venv\\Scripts\\activate
    ```
