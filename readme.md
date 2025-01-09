@@ -21,7 +21,7 @@ Questions & Answer Parser w/ Flask API:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/akh1lk/exam-parser
-   cd gradewizParser
+   cd exam-parser
    ```
 
 2. **Install Tesseract (MacOS)**:
@@ -64,7 +64,7 @@ Questions & Answer Parser w/ Flask API:
 ## **File Structure**
 
 ```
-/gradewizParser
+/exam-parser
 ├── /static               # CSS styles
 ├── /views                # HTML templates (upload and download pages)
 ├── /uploads              # Uploaded files (will be created when ran)
