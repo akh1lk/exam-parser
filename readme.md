@@ -1,4 +1,4 @@
-# **Exam Parser**
+# **AI Exam Parser**
 
 Questions & Answer Parser w/ Flask API:
 
