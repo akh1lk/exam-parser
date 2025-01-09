@@ -2,10 +2,7 @@ import os
 from openai import OpenAI
 import pymupdf
 import pandas as pd
-import numpy as np
 import json
-import io
-import re
 from PIL import Image
 import pytesseract
 from dotenv import load_dotenv
@@ -36,8 +33,18 @@ def process_file(path: str) -> str:
         return get_text_from_docx(path)
     elif(path.lower().endswith((".png", ".jpg", ".jpeg"))):
         return get_text_from_img(path)
+    elif path.lower().endswith(".txt"):
+        return get_text_from_txt(path)
     else:
         raise ValueError("Unsupported file type. Only PDFs, DOCXs, and images are supported.")
+    
+def get_text_from_txt(path: str) -> str:
+    """
+    Reads plain text from a .txt file.
+    """
+    with open(path, "r", encoding="utf-8") as file:
+        text = file.read()
+    return text.strip()
 
 def get_text_from_pdf(path: str) -> str:
     """
@@ -135,7 +142,6 @@ def organize_LLM(questions_text: str, answers_text: str, model:str ="gpt-4o") ->
         temperature=0.0,
         response_format=OrganizedOutput
     )
-
     
     try:
         #Dict of QA objects
@@ -158,10 +164,10 @@ def export_output(data: dict, output_format: str = "json", output_path: str = "o
         pd.DataFrame(data["content"]).to_csv(f"{output_path}.csv", index=False)
     elif output_format == "docx":
         save_to_docx(data, f"{output_path}.docx")
-    # elif output_format == "LaTeX":
-    #     save_to_LaTeX(data, f"{output_path}.tex")
+    elif output_format == "txt":
+        save_to_txt(data, f"{output_path}.txt")
     else:
-        raise ValueError("File Type Error")
+        raise ValueError("Unsupported file type. Supported types: json, csv, docx, txt.")
 
 
 def save_to_json(data: dict, output_path: str = "output"):
@@ -204,7 +210,7 @@ def save_to_docx(data: dict, output_path: str = "output"):
             metadata_paragraph.add_run("\n")
 
     document.add_paragraph() # Post Metadata Spacing
-    
+
     #Qs & As Section
     for idx, qa in enumerate(data["content"], start = 1):
         question = qa["question"]
@@ -235,12 +241,38 @@ def save_to_docx(data: dict, output_path: str = "output"):
     document.save(output_path)
     print(f"Output saved to {output_path}")
 
+def save_to_txt(data: dict, output_path: str = "output"):
+        """
+        Saves a dict to a .txt file at path 'output_path'.
+        """
+        with open(output_path, "w", encoding="utf-8") as file:
+            metadata = data.get("metadata", {})
+            if metadata:
+                file.write("Metadata:\n")
+                for key, value in metadata.items():
+                    file.write(f"{key.capitalize()}: {value}\n")
+                file.write("\n")
+
+            file.write("Questions and Answers:\n")
+            for idx, qa in enumerate(data["content"], start=1):
+                file.write(f"Q{idx}: {qa['question']}\n")
+                if qa.get("answer"):
+                    file.write(f"A{idx}: {qa['answer']}\n")
+                if qa.get("subquestions"):
+                    for sub_idx, sub in enumerate(qa["subquestions"], start=1):
+                        sub_label = chr(96 + sub_idx)
+                        file.write(f"  Q{idx}.{sub_label}: {sub['question']}\n")
+                        file.write(f"  A{idx}.{sub_label}: {sub['answer']}\n")
+                file.write("\n")
+
+        print(f"Output saved to {output_path}")
+
 def save_to_pdf(data: dict, output_path: str = "output"):
     """
     Saves a dict to a .pdf file by first generating a .docx file and then converting it to a .pdf using docx2pdf.
     """
     docx_path = f"{os.path.splitext(output_path)[0]}.docx"
-    pdf_path = f"{output_path}.pdf"
+    pdf_path = f"{output_path}"
 
     # Step 1: Generate .docx
     save_to_docx(data, docx_path)

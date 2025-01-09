@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    <title>GradeWiz Parser - Download Files</title>
+</head>
+<body>
+    <h2>Files Ready for Download:</h2>
+    <ul>
+        <li><a href="{{ json_url }}">Download JSON Output</a></li>
+        <li><a href="{{ docx_url }}">Download DOCX Output</a></li>
+    </ul>
+    <a href="/">Go back to upload more files</a>
+</body>
+</html>
