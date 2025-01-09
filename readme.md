@@ -1,6 +1,6 @@
 # **GradeWiz Parser**
 
-Questions & Answer Parser:
+Questions & Answer Parser w/ Flask API:
 
 - Flask API intelligently pairs using OpenAI’s LLM, 
 - Output Formats: **JSON**, **DOCX** 
@@ -11,7 +11,7 @@ Questions & Answer Parser:
 
 - **Upload** question and answer files in PDF, DOCX, or image formats.
 - **Process** the files using OpenAI's GPT model to intelligently pair questions with their corresponding answers.
-- **Download** the output in JSON, DOCX, or PDF format.
+- **Download** the output in JSON or DOCX formats.
 - Supports **OCR** for images using Tesseract.
 
 ---
@@ -57,13 +57,7 @@ Questions & Answer Parser:
 
 2. Open your browser and go to `http://localhost:8000/.
 
----
-
-## **Usage**
-
-1. **Upload** your question and answer files.
-2. The app will process the files and generate output in **JSON**, **DOCX**, and **PDF** formats.
-3. **Download** the processed files from the provided links.
+3. **Wait 10-20 seconds** for output to be generated.
 
 ---
 
@@ -80,4 +74,3 @@ Questions & Answer Parser:
 ├── requirements.txt      # Python dependencies
 └── README.md             # Project documentation
 ```
-"""
