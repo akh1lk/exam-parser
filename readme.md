@@ -39,13 +39,13 @@ Questions & Answer Parser w/ Flask API:
    ```bash
    pip install -r requirements.txt
    ```
+   If error in parser.py, manually do 'pip install pytesseract'
 
 5. **Set Up the OpenAI API Key**:
    - Create a `.env` file in the project root and add your OpenAI API key:
      ```bash
      echo "OPENAI_KEY=your_openai_api_key_here" > .env
      ```
-
 ---
 
 ## **Running the Application**
@@ -57,7 +57,7 @@ Questions & Answer Parser w/ Flask API:
 
 2. Open your browser and go to `http://localhost:8000/.
 
-3. **Wait 10-20 seconds** for output to be generated.
+3. **Wait 30ish seconds** for output to be generated.
 
 ---
 
