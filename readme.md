@@ -63,6 +63,12 @@ Questions & Answer Parser w/ Flask API:
 
 ---
 
+### Example: (.PNG Inputs) -> (.JSON & .DOCX) Outputs
+
+<img src="https://github.com/user-attachments/assets/d79edb8c-b30c-4c5a-aac2-16176074b4c1" height="150"> <img src="https://github.com/user-attachments/assets/d37c026f-296f-4480-b5d6-de703441ebfc" height="150"/> <img src="https://github.com/user-attachments/assets/749e8a8c-aaf7-4c2a-9687-f23aefa62178" height="150"> <img src="https://github.com/user-attachments/assets/a3d3590e-9be6-4067-9559-2de688135c9f" height="150">
+
+---
+
 ## **File Structure**
 
 ```
